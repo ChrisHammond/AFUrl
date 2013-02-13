@@ -1,0 +1,9 @@
+﻿/************************************************************/
+/*****              SQLDataProvider		                *****/
+/*****   DotNetNuke Module Friendly Url Provider 1.00.00	*****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for  and {objectQualifier}	*****/
+/************************************************************/
+--TODO : Implement database calls here

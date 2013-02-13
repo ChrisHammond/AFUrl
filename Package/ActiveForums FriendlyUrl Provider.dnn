@@ -1,0 +1,94 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages>
+    <package name="DotNetNuke.ActiveForumsFriendlyUrlProvider" type="Module" version="01.00.00">
+      <friendlyName>DotNetNuke FriendlyUrl Provider</friendlyName>
+      <description>The DotNetNuke ActiveForums Friendly Url Provider module transforms the Urls for the ActiveForums.</description>
+      <owner>
+        <name>Developers Name</name>
+        <organization>DotNetNuke Software</organization>
+        <url><![CDATA[<a href="http://www.dotnetnuke.com" target="_new">DotNetNuke Website</a>]]></url>
+        <email><![CDATA[Contact DotNetNuke via the <a href="http://www.dotnetnuke.com/Intro/About-Us/Contact.aspx" target="_new">Contact Page</a>]]></email>
+      </owner>
+      <license src="EULA.html" />
+      <releaseNotes >
+        <![CDATA[
+            <p style="font-weight:bolder">Version 01.00.00- Released dd/mm/yy</p>
+            <p>[Description of what ActiveForums Module Friendly Url Provider does]</p>
+            <p>
+            [Link to release notes if kept elsewhere, ie, your site]
+            </p>
+          ]]>
+      </releaseNotes>
+      <dependencies>
+        <!-- uncomment and change for dependency on your module being installed -->
+        <dependency type="Package">DotNetNuke.Modules.ActiveForums</dependency>
+        <dependency type="Package">iFinity Url Master</dependency>
+      </dependencies>
+      <components>
+        <component type="Script">
+          <scripts>
+            <basePath>DesktopModules\DotNetNuke.ActiveForumsFriendlyUrlProvider\SqlDataProvider</basePath>
+            <script type="Install">
+              <name>01.00.00.SqlDataProvider</name>
+              <version>01.00.00</version>
+            </script>
+            <script type="Uninstall">
+              <name>Uninstall.SqlDataProvider</name>
+              <version>01.00.00</version>
+            </script>
+          </scripts>
+        </component>
+        <component type="Assembly">
+          <assemblies>
+            <assembly>
+              <path>bin</path>
+              <name>DotNetNuke.ActiveForumsFriendlyUrlProvider.dll</name>
+              <sourceFileName>DotNetNuke.ActiveForumsFriendlyUrlProvider.dll</sourceFileName>
+            </assembly>
+          </assemblies>
+        </component>
+        <component type="Config">
+          <config>
+            <configFile>web.config</configFile>
+            <install>
+              <configuration>
+                <nodes>
+                  <node path="/configuration/configSections/sectionGroup[@name='dotnetnuke']" action="update" key="name" collision="overwrite">
+                    <section name="moduleFriendlyUrl" requirePermission="false" type="DotNetNuke.Framework.Providers.ProviderConfigurationHandler, DotNetNuke" />
+                  </node>
+                  <node path="/configuration/dotnetnuke" action="update" targetpath="/configuration/dotnetnuke/moduleFriendlyUrl" collision="ignore">
+                    <moduleFriendlyUrl defaultProvider="None">
+                      <providers>
+                      </providers>
+                    </moduleFriendlyUrl>
+                  </node>
+                  <node path="/configuration/dotnetnuke/moduleFriendlyUrl/providers" action="update" key="name" collision="overwrite">
+                    <add name="DotNetNuke.ActiveForums" type="DotNetNuke.ActiveForumsModuleFriendlyUrlProvider.ActiveForumsModuleProvider, DotNetNuke.ActiveForumModuleFriendlyUrlProvider">
+                      <portals>
+                      </portals>
+                    </add >
+                  </node>
+                </nodes>
+              </configuration>
+            </install>
+            <uninstall>
+              <configuration>
+                <nodes>
+                  <node path="/configuration/dotnetnuke/moduleFriendlyUrl/providers/add[@name='DotNetNuke.ActiveForums']" action="remove" />
+                </nodes>
+              </configuration>
+            </uninstall>
+          </config>
+        </component>
+        <component type="ResourceFile">
+          <resourceFiles>
+            <basePath>DesktopModules\DotNetNuke.ActiveForumsFriendlyUrlProvider</basePath>
+            <resourceFile>
+              <name>DotNetNuke.ActiveForumsFriendlyUrlProvider_Resources.zip</name>
+            </resourceFile>
+          </resourceFiles>
+        </component>
+      </components>
+    </package>
+  </packages>
+</dotnetnuke>
