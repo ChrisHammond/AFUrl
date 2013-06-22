@@ -223,8 +223,6 @@ namespace DotNetNuke.ActiveForumsModuleFriendlyUrlProvider
             bool doRedirect = false;
             redirectLocation = "";//set blank location
             //compare to known pattern of old Urls
-            //could be in old /itemid/xx format - if so, we want to redirect it
-
             Regex groupPathRegex = new Regex(@"/groupid/(?<groupid>\d+)", RegexOptions.IgnoreCase);
             Regex forumPathRegex = new Regex(@"/forumid/(?<forumid>\d+)", RegexOptions.IgnoreCase);
             Regex threadPathRegex = new Regex(@"/threadid/(?<threadid>\d+)", RegexOptions.IgnoreCase);
@@ -236,13 +234,19 @@ namespace DotNetNuke.ActiveForumsModuleFriendlyUrlProvider
             Regex threadPagePathRegex = new Regex(@"/threadpage/(?<pageid>\d+)", RegexOptions.IgnoreCase);
             Regex forumPagePathRegex = new Regex(@"/currentpage/(?<pageid>\d+)", RegexOptions.IgnoreCase);
 
+
+            //Regex to know if we are using a real AF url for editing a post, then we need to NOT replace postId
+
+            Regex ignorePathRegex = new Regex(@"/afv/post/action/[^/]+", RegexOptions.IgnoreCase);
+
             string path = requestUri.AbsoluteUri;
 
             redirectLocation = path;
 
+            var ignoreMatch = ignorePathRegex.Match(redirectLocation);
             var postMatch = postPathRegex.Match(redirectLocation);
             //check for an existing PostId from DNNForum (direct link to a post)
-            if (postMatch.Success)
+            if (postMatch.Success && !ignoreMatch.Success)
             {
                 //todo: should ignore ForumId in the original URL if we match a postid? 
                 string postid = postMatch.Groups["postid"].Value;
