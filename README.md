@@ -1,5 +1,5 @@
 # AFUrl
-Active Forums URL Provider for URLMaster
+Active Forums URL Provider for URLMaster, Originally hosted on Codeplex
 
 *NO LONGER MAINTAINED* you should be on DNN 9 now, URLMaster is useless now.
 
